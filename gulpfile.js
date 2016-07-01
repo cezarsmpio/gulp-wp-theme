@@ -72,7 +72,7 @@ gulp.task('php', ['sass', 'scripts', 'scripts:components', 'images', 'fonts'], f
     .pipe($.if('*.js', $.uglify({
       mangle: true
     })))
-    .pipe($.if('*.css', $.cssshrink()))
+    .pipe($.if('*.css', $.cssnano()))
     .pipe(gulp.dest('theme'));
 });
 
