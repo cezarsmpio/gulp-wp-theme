@@ -22,7 +22,8 @@ First of all, you need of PHP 5.4+ installed on your environment.
 2. Install npm dependencies with `npm install`
 3. Go to `development/sass/style.css` and put your theme's information
 4. Run `npm run watch` to preview and code
-5. Finished? Run `npm run build` to get an optimized starter theme
+5. Code on the `development` folder
+6. Finished? Run `npm run build` to get an optimized starter theme
 
 __Remember__, you are creating a PHP project not a Wordpress Project, yet. The generated folder `theme` is only a "starter" to create your theme. To make the things easier.
 
