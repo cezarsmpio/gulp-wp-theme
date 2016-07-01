@@ -2,7 +2,7 @@
 
 > Code in development. Get an optimized starter theme.
 
-![gulp-wp-theme](./gulp-wp-theme.png)
+![gulp-wp-theme](./development/images/gulp-wp-theme.png)
 
 ## Features
 
