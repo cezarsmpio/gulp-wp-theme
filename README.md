@@ -10,7 +10,7 @@
 * [Include JavaScript files like snockets / sprockets](https://github.com/wiledal/gulp-include#include-directives)
 * Image optimization
 * CSS Autoprefixer
-* __PHP Server__ with BrowserSync
+* __PHP Server__ and live reload with BrowserSync
 * Powerful CSS with SASS
 * JS and CSS minification
 * Install and use components via npm and bower
