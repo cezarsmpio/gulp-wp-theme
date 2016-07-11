@@ -24,8 +24,9 @@ First of all, you need of PHP 5.4+ and MySQL installed on your environment.
 3. Download wordpress via `npm run wordpress` one time
 4. Go to `development/sass/style.scss` and put your theme's information
 5. Run `npm run watch` to preview and code
-6. Code on the `development` folder like a theme (use full Wordpress functions)
-7. Finished? Run `npm run build` to get an optimized wordpress package on `dist` folder
+6. Install Wordpress and connect to your database, after that, sign in on Wordpress and activate the `gulp-wp-theme`
+7. Code on the `development` folder like a theme (use full Wordpress functions)
+8. Finished? Run `npm run build` to get an optimized wordpress package on `dist` folder
 
 ## Todo
 
