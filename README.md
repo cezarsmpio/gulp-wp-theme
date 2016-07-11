@@ -22,7 +22,7 @@ First of all, you need of PHP 5.4+ and MySQL installed on your environment.
 1. Clone this repo and go to folder
 2. Install npm dependencies with `npm install`
 3. Download wordpress via `npm run wordpress` one time
-4. Go to `development/sass/style.css` and put your theme's information
+4. Go to `development/sass/style.scss` and put your theme's information
 5. Run `npm run watch` to preview and code
 6. Code on the `development` folder like a theme (use full Wordpress functions)
 7. Finished? Run `npm run build` to get an optimized wordpress package on `dist` folder

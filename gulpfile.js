@@ -20,6 +20,7 @@ gulp.task('sass', function () {
     .pipe($.autoprefixer({
       browsers: ['last 5 versions']
     }))
+    .pipe($.concat('style.css'))
     .pipe($.cssnano())
     .pipe(gulp.dest('.tmp/wordpress/wp-content/themes/gulp-wp-theme'));
 });
