@@ -38,6 +38,7 @@ jspm_packages
 
 .tmp
 
-development/bower_components
+bower_components
 
-theme
+dist
+

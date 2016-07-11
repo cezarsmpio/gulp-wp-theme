@@ -1,1 +1,0 @@
-"use strict";!function(o,n){console.log("Hello, Word!")}(window,document);
