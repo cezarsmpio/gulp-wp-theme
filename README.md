@@ -1,6 +1,6 @@
 # gulp-wp-theme
 
-> Code in development. Get an optimized starter theme.
+> Code in development. Get an optimized wordpress package.
 
 ![gulp-wp-theme](./development/images/gulp-wp-theme.png)
 
@@ -13,23 +13,27 @@
 * __PHP Server__ with BrowserSync
 * Powerful CSS with SASS
 * JS and CSS minification
+* Install and use components via npm and bower
 
 ## How to install
 
-First of all, you need of PHP 5.4+ installed on your environment.
+First of all, you need of PHP 5.4+ and MySQL installed on your environment.
 
 1. Clone this repo and go to folder
 2. Install npm dependencies with `npm install`
-3. Go to `development/sass/style.css` and put your theme's information
-4. Run `npm run watch` to preview and code
-5. Code on the `development` folder
-6. Finished? Run `npm run build` to get an optimized starter theme
-
-__Remember__, you are creating a PHP project not a Wordpress Project, yet. The generated folder `theme` is only a "starter" to create your theme. To make the things easier.
+3. Download wordpress via `npm run wordpress` one time
+4. Go to `development/sass/style.css` and put your theme's information
+5. Run `npm run watch` to preview and code
+6. Code on the `development` folder like a theme (use full Wordpress functions)
+7. Finished? Run `npm run build` to get an optimized wordpress package on `dist` folder
 
 ## Todo
 
-* Full integration with Wordpress
+* ~~Full integration with Wordpress~~
+
+## Some "issues"
+
+If you see `undefined%` on wordpress download progress, don't worry about that.
 
 ## License
 

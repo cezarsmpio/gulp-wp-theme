@@ -1,5 +1,5 @@
 (function(window, document) {
 
-  console.log('Hello, World!');
+  console.log('Hello, Word!');
 
 })(window, document);

@@ -4,17 +4,24 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var plugins = require('gulp-load-plugins');
 var $ = plugins();
+var request = require('request');
 
 // Tasks
 gulp.task('sass', function () {
   return gulp.src('development/sass/**/*.scss')
     .pipe($.plumber())
-    .pipe($.sass())
+    .pipe($.sass({
+      includePaths: [
+        'node_modules',
+        'bower_components',
+        'development/sass'
+      ]
+    }))
     .pipe($.autoprefixer({
       browsers: ['last 5 versions']
     }))
-    .pipe(gulp.dest('.tmp/css'))
-    .pipe(reload({stream: true}));
+    .pipe($.cssnano())
+    .pipe(gulp.dest('.tmp/wordpress/wp-content/themes/gulp-wp-theme'));
 });
 
 gulp.task('scripts', function () {
@@ -27,12 +34,14 @@ gulp.task('scripts', function () {
       extensions: 'js',
       includePaths: [
         'node_modules',
-        'development/bower_components',
+        'bower_components',
         'development/js'
       ]
     }))
-    .pipe(gulp.dest('.tmp/js'))
-    .pipe(reload({stream: true}));
+    .pipe($.uglify({
+      mangle: true
+    }))
+    .pipe(gulp.dest('.tmp/wordpress/wp-content/themes/gulp-wp-theme/js'));
 });
 
 gulp.task('scripts:components', function () {
@@ -45,62 +54,83 @@ gulp.task('scripts:components', function () {
       extensions: 'js',
       includePaths: [
         'node_modules',
-        'development/bower_components',
+        'bower_components',
         'development/js'
       ]
     }))
-    .pipe(gulp.dest('.tmp/js/components'))
-    .pipe(reload({stream: true}));
+    .pipe($.uglify({
+      mangle: true
+    }))
+    .pipe(gulp.dest('.tmp/wordpress/wp-content/themes/gulp-wp-theme/js/components'));
+});
+
+gulp.task('scripts:vendor', function () {
+  return gulp.src('development/js/vendor/**/*.js')
+    .pipe($.plumber())
+    .pipe($.concat('vendor.min.js'))
+    .pipe($.uglify({
+      mangle: true
+    }))
+    .pipe(gulp.dest('.tmp/wordpress/wp-content/themes/gulp-wp-theme/js/vendor'));
 });
 
 gulp.task('images', function () {
   return gulp.src('development/images/**/*')
     .pipe($.cache($.imagemin()))
-    .pipe(gulp.dest('theme/images'));
+    .pipe(gulp.dest('.tmp/wordpress/wp-content/themes/gulp-wp-theme/images'));
 });
 
 gulp.task('fonts', () => {
   return gulp.src('development/fonts/**/*')
-    .pipe(gulp.dest('.tmp/fonts'))
-    .pipe(gulp.dest('dist/fonts'));
+    .pipe(gulp.dest('.tmp/fonts'));
 });
 
-gulp.task('php', ['sass', 'scripts', 'scripts:components', 'images', 'fonts'], function () {
+gulp.task('php', ['sass', 'scripts', 'scripts:components', 'scripts:vendor', 'images', 'fonts'], function () {
   return gulp.src('development/**/*.php')
     .pipe($.plumber())
-    .pipe($.useref({searchPath: ['.tmp', 'development']}))
-    .pipe($.if('*.js', $.uglify({
-      mangle: true
-    })))
-    .pipe($.if('*.css', $.cssnano()))
-    .pipe(gulp.dest('theme'));
+    .pipe(gulp.dest('.tmp/wordpress/wp-content/themes/gulp-wp-theme'));
+});
+
+gulp.task('wordpress', function () {
+  return $.download('https://wordpress.org/latest.zip')
+    .pipe($.unzip())
+    .pipe(gulp.dest('.tmp'));
+});
+
+gulp.task('screenshot', function () {
+  return gulp.src('screenshot.png')
+    .pipe(gulp.dest('.tmp/wordpress/wp-content/themes/gulp-wp-theme'));
 });
 
 gulp.task('build', ['php'], function () {
-  return gulp.src('theme/**/*').pipe($.size({title: 'theme created', gzip: true}));
+  return gulp.src('.tmp/wordpress/**/*')
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', function () {
   gulp.start('build');
 });
 
-gulp.task('watch', ['scripts', 'scripts:components', 'sass'], function () {
+gulp.task('watch', ['php', 'screenshot'], function () {
   $.connectPhp.server({
-    base: 'development'
+    base: '.tmp/wordpress'
   }, function () {
     browserSync({
       proxy: '127.0.0.1:8000',
-      serveStatic: ['.tmp'],
       notify: false
     });
   });
 
   gulp.watch('development/images/**/*', ['images']);
   gulp.watch('development/fonts/**/*', ['fonts']);
-  gulp.watch('development/js/**/*.js', ['scripts']);
+  gulp.watch('development/js/main.js', ['scripts']);
+  gulp.watch('development/js/components/**/*.js', ['scripts:components']);
+  gulp.watch('development/js/vendor/**/*.js', ['scripts:vendor']);
   gulp.watch('development/sass/**/*.scss', ['sass']);
 
-  gulp.watch('development/**/*.php').on('change', function () {
-    reload()
+  gulp.watch('development/**/*.php', ['php']);
+
+  gulp.watch('development/**/*').on('change', function () {
+    reload();
   });
 });

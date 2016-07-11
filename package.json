@@ -1,15 +1,16 @@
 {
   "name": "gulp-wp-theme",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A WP theme boilerplate",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf .tmp && rm -rf theme",
-    "watch": "npm run clean && gulp watch",
-    "build": "npm run clean && gulp"
+    "clean": "rm -rf .tmp && rm -rf dist",
+    "watch": "gulp watch",
+    "wordpress": "npm run clean && gulp wordpress",
+    "build": "gulp"
   },
-  "author": "Cezar Luiz <cezarluiz.c@gmail.com> (https://github.com/CezarLuiz0)",
+  "author": "Cezar Luiz <cezarluiz.c@gmail.com> (https://github.com/cezarlz)",
   "license": "MIT",
   "devDependencies": {
     "babel-preset-es2015": "^6.9.0",
@@ -18,16 +19,20 @@
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
     "gulp-cache": "^0.4.5",
+    "gulp-concat": "^2.6.0",
     "gulp-connect-php": "0.0.7",
     "gulp-cssnano": "^2.1.2",
-    "gulp-if": "^2.0.1",
+    "gulp-download": "0.0.1",
     "gulp-imagemin": "^3.0.1",
     "gulp-include": "^2.3.0",
     "gulp-load-plugins": "^1.2.4",
     "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.3.2",
-    "gulp-size": "^2.1.0",
+    "gulp-sync": "^0.1.4",
     "gulp-uglify": "^1.5.4",
-    "gulp-useref": "^3.1.0"
+    "gulp-unzip": "^0.1.4"
+  },
+  "dependencies": {
+    "normalize.css": "^4.2.0"
   }
 }
