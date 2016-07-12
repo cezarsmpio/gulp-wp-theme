@@ -8,7 +8,7 @@ var request = require('request');
 
 // Tasks
 gulp.task('sass', function () {
-  return gulp.src('development/sass/**/*.scss')
+  return gulp.src('development/sass/**/*.{scss,sass}')
     .pipe($.plumber())
     .pipe($.sass({
       includePaths: [
@@ -127,7 +127,7 @@ gulp.task('watch', ['php', 'screenshot'], function () {
   gulp.watch('development/js/main.js', ['scripts']);
   gulp.watch('development/js/components/**/*.js', ['scripts:components']);
   gulp.watch('development/js/vendor/**/*.js', ['scripts:vendor']);
-  gulp.watch('development/sass/**/*.scss', ['sass']);
+  gulp.watch('development/sass/**/*.{scss,sass}', ['sass']);
 
   gulp.watch('development/**/*.php', ['php']);
 
