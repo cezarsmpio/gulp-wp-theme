@@ -23,7 +23,7 @@ gulp.task('sass', function () {
     }))
     .pipe($.concat('style.css'))
     .pipe($.cssnano())
-    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + theme_path));
+    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + config.theme_path));
 });
 
 gulp.task('scripts', function () {
@@ -43,7 +43,7 @@ gulp.task('scripts', function () {
     .pipe($.uglify({
       mangle: true
     }))
-    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + theme_path + '/js'));
+    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + config.theme_path + '/js'));
 });
 
 gulp.task('scripts:components', function () {
@@ -63,7 +63,7 @@ gulp.task('scripts:components', function () {
     .pipe($.uglify({
       mangle: true
     }))
-    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + theme_path + '/js/components'));
+    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + config.theme_path + '/js/components'));
 });
 
 gulp.task('scripts:vendor', function () {
@@ -73,13 +73,13 @@ gulp.task('scripts:vendor', function () {
     .pipe($.uglify({
       mangle: true
     }))
-    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + theme_path + '/js/vendor'));
+    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + config.theme_path + '/js/vendor'));
 });
 
 gulp.task('images', function () {
   return gulp.src(config.development_path + 'images/**/*')
     .pipe($.cache($.imagemin()))
-    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + theme_path + '/images'));
+    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + config.theme_path + '/images'));
 });
 
 gulp.task('fonts', () => {
@@ -90,7 +90,7 @@ gulp.task('fonts', () => {
 gulp.task('php', ['sass', 'scripts', 'scripts:components', 'scripts:vendor', 'images', 'fonts'], function () {
   return gulp.src(config.development_path + '**/*.php')
     .pipe($.plumber())
-    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + theme_path));
+    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + config.theme_path));
 });
 
 gulp.task('wordpress', function () {
@@ -101,7 +101,7 @@ gulp.task('wordpress', function () {
 
 gulp.task('screenshot', function () {
   return gulp.src('screenshot.png')
-    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + theme_path));
+    .pipe(gulp.dest(config.tmp_path + 'wordpress/wp-content/themes/' + config.theme_path));
 });
 
 gulp.task('build', ['php'], function () {
