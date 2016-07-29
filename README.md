@@ -14,6 +14,8 @@
 * Powerful CSS with SASS
 * JS and CSS minification
 * Install and use components via npm and bower
+* Useful helper functions
+* Styles and scripts enqueued
 
 ## How to install
 
@@ -31,6 +33,7 @@ First of all, you need of PHP 5.4+ and MySQL installed on your environment.
 ## Todo
 
 * ~~Full integration with Wordpress~~
+* One command to download a wordpress plugin, something like `npm run wordpress:plugin -- advanced-custom-fields`
 
 ## Some "issues"
 
