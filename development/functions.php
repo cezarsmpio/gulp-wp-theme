@@ -20,23 +20,36 @@ add_theme_support('menus');
 // add_image_size('your-crop-name', 300, 200, true);
 
 /**
- * Get the terms of post
- * @param  object $p         The post
- * @param  string $class     CSS Class
- * @param  string $separator
- * @return string            The terms
+ * Get the terms of specific post in a list
+ * @param  object $p      The post
+ * @param  array  $params An array of params
+ * @return string         The HTML result
  */
-function get_post_terms($p, $class = 'post-preview__cat', $separator = '') {
-  $links = array();
-  $p->cats = wp_get_post_categories($p->ID);
+function get_post_terms($p, $params = array()) {
+  $defaults = array(
+    'class' => 'term-item',
+    'separator' => ', ',
+    'taxonomy' => 'category',
+    'links' => true,
+    'args' => array()
+  );
+  $options = array_merge($defaults, $params);
+
+  $elements = array();
+  $p->cats = wp_get_post_terms($p->ID, $options['taxonomy'], $options['args']);
 
   foreach ($p->cats as $c) {
     $cat = get_category($c);
 
-    $links[] = "<a href=\"" . get_category_link($cat->term_id) . "\" class=\"$class\">" . $cat->name . "</a>";
+    if ($options['links']) {
+      $elements[] = "<a href=\"" . get_category_link($cat->term_id) . "\" class=\"" . $options['class'] . "\">" . $cat->name . "</a>";
+    }
+    else {
+      $elements[] = "<span class=\"" . $options['class'] . "\">" . $cat->name . "</span>";
+    }
   }
 
-  return implode($separator, $links);
+  return implode($options['separator'], $elements);
 }
 
 /**
