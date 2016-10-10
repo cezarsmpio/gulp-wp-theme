@@ -6,6 +6,7 @@ var plugins     = require('gulp-load-plugins');
 var $           = plugins();
 var request     = require('request');
 var config      = require('./gulp.config.js');
+var webpack     = require('webpack-stream');
 
 // Tasks
 gulp.task('sass', function () {
@@ -29,16 +30,19 @@ gulp.task('sass', function () {
 gulp.task('scripts', function () {
   return gulp.src(`${config.development_path}/js/main.js`)
     .pipe($.plumber())
-    .pipe($.babel({
-      presets: ['es2015']
-    }))
-    .pipe($.include({
-      extensions: 'js',
-      includePaths: [
-        'node_modules',
-        'bower_components',
-         `${config.development_path}/js`
-      ]
+    .pipe(webpack({
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: 'babel',
+            query: {
+              presets: ['es2015']
+            }
+          }
+        ]
+      }
     }))
     .pipe($.uglify({
       mangle: true
@@ -46,35 +50,6 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}/js`));
 });
 
-gulp.task('scripts:components', function () {
-  return gulp.src(`${config.development_path}/js/components/**/*.js`)
-    .pipe($.plumber())
-    .pipe($.babel({
-      presets: ['es2015']
-    }))
-    .pipe($.include({
-      extensions: 'js',
-      includePaths: [
-        'node_modules',
-        'bower_components',
-         `${config.development_path}/js`
-      ]
-    }))
-    .pipe($.uglify({
-      mangle: true
-    }))
-    .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}/js/components`));
-});
-
-gulp.task('scripts:vendor', function () {
-  return gulp.src(`${config.development_path}/js/vendor/**/*.js`)
-    .pipe($.plumber())
-    .pipe($.concat('vendor.min.js'))
-    .pipe($.uglify({
-      mangle: true
-    }))
-    .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}/js/vendor`));
-});
 
 gulp.task('images', function () {
   return gulp.src(`${config.development_path}/images/**/*`)
@@ -87,7 +62,7 @@ gulp.task('fonts', () => {
     .pipe(gulp.dest(`${config.tmp_path}/fonts`));
 });
 
-gulp.task('php', ['sass', 'scripts', 'scripts:components', 'scripts:vendor', 'images', 'fonts'], function () {
+gulp.task('php', function () {
   return gulp.src(`${config.development_path}/**/*.php`)
     .pipe($.plumber())
     .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}`));
@@ -113,7 +88,9 @@ gulp.task('default', function () {
   gulp.start('build');
 });
 
-gulp.task('watch', ['php', 'screenshot'], function () {
+let defaultTasks = ['php', 'screenshot', 'sass', 'scripts', 'images', 'fonts'];
+
+gulp.task('watch', defaultTasks, function () {
   $.connectPhp.server({
     base:  `${config.tmp_path}/wordpress`
   }, function () {
@@ -126,13 +103,11 @@ gulp.task('watch', ['php', 'screenshot'], function () {
   gulp.watch(`${config.development_path}/images/**/*`, ['images']);
   gulp.watch(`${config.development_path}/fonts/**/*`, ['fonts']);
   gulp.watch(`${config.development_path}/js/main.js`, ['scripts']);
-  gulp.watch(`${config.development_path}/js/components/**/*.js`, ['scripts:components']);
-  gulp.watch(`${config.development_path}/js/vendor/**/*.js`, ['scripts:vendor']);
   gulp.watch(`${config.development_path}/sass/**/*.{scss,sass}`, ['sass']);
 
   gulp.watch(`${config.development_path}/**/*.php`, ['php']);
 
-  gulp.watch(`${config.development_path}/**/*').on('change`, function () {
+  gulp.watch(`${config.development_path}/**/*`).on('change', function () {
     reload();
   });
 });
