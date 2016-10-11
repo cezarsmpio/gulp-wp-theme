@@ -63,8 +63,21 @@ gulp.task('images', function () {
 });
 
 gulp.task('fonts', () => {
-  return gulp.src(`${config.development_path}/fonts/**/*`)
-    .pipe(gulp.dest(`${config.tmp_path}/fonts`));
+  syncy(
+    [`${config.development_path}/fonts/**/*`],
+    `${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}`,
+    {
+      verbose: true,
+      base: config.development_path,
+      ignoreInDest: '!fonts/**/*'
+    }
+  )
+    .then(() => {
+      done();
+    })
+    .catch(err => {
+      done(err);
+    });
 });
 
 gulp.task('php', function (done) {
