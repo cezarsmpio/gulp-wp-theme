@@ -20,7 +20,7 @@ gulp.task('sass', function () {
         'bower_components',
         `${config.development_path}/sass`
       ]
-    }))
+    }).on('error', $.sass.logError))
     .pipe($.autoprefixer({
       browsers: ['last 5 versions']
     }))
