@@ -6,7 +6,6 @@ function load_assets() {
   wp_enqueue_style('main-style', get_stylesheet_uri(), array(), '1.0');
 
   /* JS */
-  wp_enqueue_script('vendors', get_stylesheet_directory_uri() . '/js/vendor/vendor.min.js', array(), '1.0', true);
   wp_enqueue_script('main-script', get_stylesheet_directory_uri() . '/js/main.js', array(), '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'load_assets');
