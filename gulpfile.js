@@ -32,6 +32,9 @@ gulp.task('scripts', function () {
   return gulp.src(`${config.development_path}/js/main.js`)
     .pipe($.plumber())
     .pipe(webpack({
+      output: {
+        filename: 'main.js'
+      },
       module: {
         loaders: [
           {
@@ -45,8 +48,6 @@ gulp.task('scripts', function () {
         ]
       }
     }))
-    .pipe($.uglify({ mangle: true }))
-    .pipe($.concat('main.js'))
     .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}/js`));
 });
 
