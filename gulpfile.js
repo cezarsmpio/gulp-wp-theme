@@ -46,6 +46,7 @@ gulp.task('scripts', function () {
       }
     }))
     .pipe($.uglify({ mangle: true }))
+    .pipe($.concat('main.js'))
     .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}/js`));
 });
 
