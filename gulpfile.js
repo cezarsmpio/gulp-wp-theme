@@ -56,13 +56,26 @@ gulp.task('scripts', function () {
 });
 
 
-gulp.task('images', function () {
-  return gulp.src(`${config.development_path}/images/**/*`)
-    .pipe($.cache($.imagemin()))
-    .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}/images`));
+gulp.task('images', function (done) {
+  syncy(
+    [`${config.development_path}/images/**/*`],
+    `${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}`,
+    {
+      verbose: true,
+      base: config.development_path,
+      ignoreInDest: '!images/**/*'
+    }
+  )
+    .then((a, b, c) => {
+      console.log(a, b, c);
+      done();
+    })
+    .catch(err => {
+      done(err);
+    });
 });
 
-gulp.task('fonts', () => {
+gulp.task('fonts', function (done) {
   syncy(
     [`${config.development_path}/fonts/**/*`],
     `${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}`,
