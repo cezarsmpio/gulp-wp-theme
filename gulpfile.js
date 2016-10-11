@@ -6,9 +6,9 @@ let plugins     = require('gulp-load-plugins');
 let $           = plugins();
 let request     = require('request');
 let config      = require('./gulp.config.js');
-let webpack     = require('webpack-stream');
 let syncy       = require('syncy');
-
+let webpackStream     = require('webpack-stream');
+let webpack     = require('webpack');
 
 // Tasks
 gulp.task('sass', function () {
@@ -32,7 +32,7 @@ gulp.task('sass', function () {
 gulp.task('scripts', function () {
   return gulp.src(`${config.development_path}/js/main.js`)
     .pipe($.plumber())
-    .pipe(webpack({
+    .pipe(webpackStream({
       output: {
         filename: 'main.js'
       },
@@ -47,7 +47,10 @@ gulp.task('scripts', function () {
             }
           }
         ]
-      }
+      },
+      plugins: [
+        new webpack.optimize.UglifyJsPlugin({mangle: true})
+      ]
     }))
     .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}/js`));
 });
