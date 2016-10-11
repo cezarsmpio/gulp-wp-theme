@@ -1,13 +1,14 @@
 // Variables
-var gulp        = require('gulp');
-var browserSync = require('browser-sync');
-var reload      = browserSync.reload;
-var plugins     = require('gulp-load-plugins');
-var $           = plugins();
-var request     = require('request');
-var config      = require('./gulp.config.js');
-var webpack     = require('webpack-stream');
-var syncy       = require('syncy');
+let gulp        = require('gulp');
+let browserSync = require('browser-sync');
+let reload      = browserSync.reload;
+let plugins     = require('gulp-load-plugins');
+let $           = plugins();
+let request     = require('request');
+let config      = require('./gulp.config.js');
+let webpack     = require('webpack-stream');
+let syncy       = require('syncy');
+
 
 // Tasks
 gulp.task('sass', function () {
