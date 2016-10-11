@@ -30,6 +30,7 @@
     "gulp-sass": "^2.3.2",
     "gulp-uglify": "^1.5.4",
     "gulp-unzip": "^0.1.4",
+    "syncy": "^2.0.1",
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {

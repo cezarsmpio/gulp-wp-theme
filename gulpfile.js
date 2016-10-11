@@ -7,6 +7,7 @@ var $           = plugins();
 var request     = require('request');
 var config      = require('./gulp.config.js');
 var webpack     = require('webpack-stream');
+var syncy       = require('syncy');
 
 // Tasks
 gulp.task('sass', function () {
@@ -14,7 +15,9 @@ gulp.task('sass', function () {
     .pipe($.plumber())
     .pipe($.sass({
       includePaths: [
-         `${config.development_path}/sass`
+        'node_modules',
+        'bower_components',
+        `${config.development_path}/sass`
       ]
     }))
     .pipe($.autoprefixer({
@@ -42,9 +45,7 @@ gulp.task('scripts', function () {
         ]
       }
     }))
-    .pipe($.uglify({
-      mangle: true
-    }))
+    .pipe($.uglify({ mangle: true }))
     .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}/js`));
 });
 
@@ -60,10 +61,22 @@ gulp.task('fonts', () => {
     .pipe(gulp.dest(`${config.tmp_path}/fonts`));
 });
 
-gulp.task('php', function () {
-  return gulp.src(`${config.development_path}/**/*.php`)
-    .pipe($.plumber())
-    .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}`));
+gulp.task('php', function (done) {
+  syncy(
+    [`${config.development_path}/**/*.php`],
+    `${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}`,
+    {
+      verbose: true,
+      base: config.development_path,
+      ignoreInDest: '!**/*.php'
+    }
+  )
+    .then(() => {
+      done();
+    })
+    .catch(err => {
+      done(err);
+    });
 });
 
 gulp.task('wordpress', function () {
@@ -105,7 +118,7 @@ gulp.task('watch', defaultTasks, function () {
 
   gulp.watch(`${config.development_path}/**/*.php`, ['php']);
 
-  gulp.watch(`${config.development_path}/**/*`).on('change', function () {
+  gulp.watch(`${config.development_path}/**/*`).on('change', function (e) {
     reload();
   });
 });
