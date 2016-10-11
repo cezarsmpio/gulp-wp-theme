@@ -19,23 +19,20 @@
     "browser-sync": "^2.13.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
-    "gulp-babel": "^6.1.2",
     "gulp-cache": "^0.4.5",
     "gulp-concat": "^2.6.0",
     "gulp-connect-php": "0.0.7",
     "gulp-cssnano": "^2.1.2",
     "gulp-download": "0.0.1",
     "gulp-imagemin": "^3.0.1",
-    "gulp-include": "^2.3.0",
     "gulp-load-plugins": "^1.2.4",
     "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.3.2",
-    "gulp-sync": "^0.1.4",
     "gulp-uglify": "^1.5.4",
     "gulp-unzip": "^0.1.4",
     "webpack-stream": "^3.2.0"
   },
   "dependencies": {
-    "normalize.css": "^4.2.0"
+    "normalize.css": "^5.0.0"
   }
 }

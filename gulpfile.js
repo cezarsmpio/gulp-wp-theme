@@ -14,8 +14,6 @@ gulp.task('sass', function () {
     .pipe($.plumber())
     .pipe($.sass({
       includePaths: [
-        'node_modules',
-        'bower_components',
          `${config.development_path}/sass`
       ]
     }))
