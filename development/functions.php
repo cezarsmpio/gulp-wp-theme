@@ -86,3 +86,14 @@ function new_excerpt_length($length) {
   return 100;
 }
 add_filter('excerpt_length', 'new_excerpt_length');
+
+/**
+ * Remove query string version from assets to cache optimizing
+ */
+function remove_assets_version( $src ){
+  $parts = explode( '?ver', $src );
+
+  return $parts[0];
+}
+add_filter( 'script_loader_src', 'remove_assets_version', 15, 1 );
+add_filter( 'style_loader_src', 'remove_assets_version', 15, 1 );
