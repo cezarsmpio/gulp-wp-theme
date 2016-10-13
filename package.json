@@ -1,6 +1,6 @@
 {
   "name": "gulp-wp-theme",
-  "version": "1.2.0",
+  "version": "1.2.3",
   "description": "A WP theme boilerplate",
   "main": "gulpfile.js",
   "scripts": {
