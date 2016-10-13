@@ -66,8 +66,7 @@ gulp.task('images', function (done) {
       ignoreInDest: '!images/**/*'
     }
   )
-    .then((a, b, c) => {
-      console.log(a, b, c);
+    .then(() => {
       done();
     })
     .catch(err => {
