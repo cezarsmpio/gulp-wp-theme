@@ -144,7 +144,7 @@ gulp.task('watch', defaultTasks, function () {
 
   gulp.watch(`${config.development_path}/images/**/*`, ['images']);
   gulp.watch(`${config.development_path}/fonts/**/*`, ['fonts']);
-  gulp.watch(`${config.development_path}/js/main.js`, ['scripts']);
+  gulp.watch(`${config.development_path}/js/**/*.js`, ['scripts']);
   gulp.watch(`${config.development_path}/sass/**/*.{scss,sass}`, ['sass']);
 
   gulp.watch(`${config.development_path}/**/*.php`, ['php']);
