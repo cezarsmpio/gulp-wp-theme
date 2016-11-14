@@ -21,7 +21,7 @@
 
 First of all, you need the PHP 5.4+ and MySQL installed on your environment.
 
-1. Clone this repo and go to folder cloned
+1. Downlod this repo
 2. Install npm dependencies with `npm install`
 3. Download wordpress via `npm run wordpress` once
 4. Go to `development/sass/style.scss` and put your theme's information
@@ -38,6 +38,7 @@ Every time that you use `npm run wordpress`, be careful, it will erase every Wor
 
 * ~~Full integration with Wordpress~~
 * One command to download a wordpress plugin, something like `npm run wordpress:plugin -- advanced-custom-fields`
+* Integration with Yeoman
 
 ## Some "issues"
 
