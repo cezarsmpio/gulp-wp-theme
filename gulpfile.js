@@ -12,7 +12,7 @@ let webpack     = require('webpack');
 
 // Tasks
 gulp.task('sass', function () {
-  return gulp.src(`${config.development_path}/sass/**/*.{scss,sass}`)
+  return gulp.src(`${config.development_path}/sass/**/style.scss`)
     .pipe($.plumber())
     .pipe($.sass({
       includePaths: [
