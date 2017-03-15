@@ -113,7 +113,7 @@ gulp.task('php', function (done) {
 gulp.task('wordpress', function () {
   return $.download('https://wordpress.org/latest.zip')
     .pipe($.unzip())
-    .pipe(gulp.dest('.tmp'));
+    .pipe(gulp.dest(config.tmp_path));
 });
 
 gulp.task('screenshot', function () {
