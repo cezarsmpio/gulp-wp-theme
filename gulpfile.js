@@ -9,6 +9,7 @@ let config      = require('./gulp.config.js');
 let syncy       = require('syncy');
 let webpackStream     = require('webpack-stream');
 let webpack     = require('webpack');
+let defaultTasks = ['php', 'screenshot', 'sass', 'scripts', 'images', 'fonts'];
 
 // Tasks
 gulp.task('sass', function () {
@@ -121,7 +122,7 @@ gulp.task('screenshot', function () {
     .pipe(gulp.dest(`${config.tmp_path}/wordpress/wp-content/themes/${config.theme_path}`));
 });
 
-gulp.task('build', ['php'], function () {
+gulp.task('build', defaultTasks, function () {
   return gulp.src(`${config.tmp_path}/wordpress/**/*`)
     .pipe(gulp.dest(config.dist_path));
 });
@@ -129,8 +130,6 @@ gulp.task('build', ['php'], function () {
 gulp.task('default', function () {
   gulp.start('build');
 });
-
-let defaultTasks = ['php', 'screenshot', 'sass', 'scripts', 'images', 'fonts'];
 
 gulp.task('watch', defaultTasks, function () {
   $.connectPhp.server({
