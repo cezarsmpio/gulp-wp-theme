@@ -8,29 +8,41 @@
     "clean": "rm -rf .tmp && rm -rf dist",
     "watch": "gulp watch",
     "wordpress": "npm run clean && gulp wordpress",
-    "build": "gulp"
+    "build": "gulp build",
+    "start:sql": "mysql.server start",
+    "start:wordpress": "npm run watch",
+    "start": "run-s start:*"
   },
   "author": "Cezar Luiz <cezarluiz.c@gmail.com> (https://github.com/cezarlz)",
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.17.0",
-    "babel-loader": "^6.2.5",
-    "babel-preset-es2015": "^6.16.0",
-    "browser-sync": "^2.13.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-connect-php": "0.0.8",
-    "gulp-cssnano": "^2.1.2",
-    "gulp-download": "0.0.1",
-    "gulp-load-plugins": "^1.2.4",
-    "gulp-plumber": "^1.1.0",
-    "gulp-sass": "^2.3.2",
-    "gulp-unzip": "^0.1.4",
-    "syncy": "^2.0.1",
-    "webpack-stream": "^3.2.0"
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.7.4",
+    "babel-loader": "^8.0.0",
+    "browser-sync": "^2.26.7",
+    "browserslist": "^4.9.1",
+    "eslint": "^6.7.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect-php": "^1.0.3",
+    "gulp-download": "^0.0.1",
+    "gulp-eslint": "^6.0.0",
+    "gulp-load-plugins": "^2.0.1",
+    "gulp-plumber": "^1.2.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-unzip": "^1.1.0",
+    "husky": "^3.1.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
+    "terser-webpack-plugin": "^2.2.1",
+    "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "normalize.css": "^5.0.0"
+    "normalize.css": "^8.0.1"
   }
 }
+
