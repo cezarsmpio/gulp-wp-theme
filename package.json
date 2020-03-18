@@ -14,7 +14,7 @@
     "start": "run-s start:*"
   },
   "author": "Cezar Luiz <cezarluiz.c@gmail.com> (https://github.com/cezarlz)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
